@@ -1,0 +1,112 @@
+<%- include("partials/_header") -%>
+
+<body>
+	<div class="tm-page-wrap mx-auto">
+		<div class="position-relative">
+
+			<%- include("partials/_navigation") -%>
+
+			<div class="tm-welcome-container tm-fixed-header tm-fixed-header-2">
+				<div class="text-center">
+					<p class="pt-5 px-3 tm-welcome-text tm-welcome-text-2 mb-1 mt-lg-0 mt-5 text-white mx-auto">Neutec Grup<br>Ürünlerimiz</p>                	
+				</div>                
+            </div>
+
+            <div id="tm-fixed-header-bg"></div> <!-- Header image -->
+		</div>
+
+		<!-- Page content -->
+		<main>
+			<div class="container-fluid px-0">
+				<div class="mx-auto tm-content-container mt-4 px-3">
+					<div class="row tm-catalog-item-list mb-4">
+						<% for (let i = 0; i < product.length; i++) { %>
+		                <div class="col-lg-4 col-md-6 col-sm-12 tm-catalog-item">
+							<div class="position-relative tm-thumbnail-container">
+                                <img src="<%= product[i].image %>" alt="Image" class="img-fluid tm-catalog-item-img">    
+                                <a href="/products/<%= product[i].slug %>" class="position-absolute tm-img-overlay">
+                                    <i class="fas fa-play tm-overlay-icon"></i>
+                                </a>
+                            </div> 
+							<div class="p-4 tm-bg-gray tm-catalog-item-description">
+                                <h3 class="tm-text-primary mb-3 tm-catalog-item-title"><%= product[i].name %></h3>
+                                <p class="tm-catalog-item-text"><b><%= product[i].description %></b>	</p>
+							</div>	
+		                </div>
+						<% } %>
+		            </div>
+				</div>
+
+				<div class="parallax-window" data-parallax="scroll" data-image-src="img/Neutec-2.jpg"></div>
+			</div>
+		</main>
+
+		<div class="container-fluid tm-content-container mx-auto pt-5">
+
+			<%- include("partials/_footer") -%>
+			
+    <script src="js/parallax.min.js"></script>
+
+
+	<script>
+        function setVideoSize() {
+            const vidWidth = 1920;
+            const vidHeight = 1080;
+            let windowWidth = window.innerWidth;
+            let newVidWidth = windowWidth;
+            let newVidHeight = windowWidth * vidHeight / vidWidth;
+            let marginLeft = 0;
+            let marginTop = 0;
+
+            if (newVidHeight < 500) {
+                newVidHeight = 500;
+                newVidWidth = newVidHeight * vidWidth / vidHeight;
+            }
+
+            if(newVidWidth > windowWidth) {
+                marginLeft = -((newVidWidth - windowWidth) / 2);
+            }
+
+            if(newVidHeight > 720) {
+                marginTop = -((newVidHeight - $('#tm-video-container').height()) / 2);
+            }
+
+            const tmVideo = $('#tm-video');
+
+            tmVideo.css('width', newVidWidth);
+            tmVideo.css('height', newVidHeight);
+            tmVideo.css('margin-left', marginLeft);
+            tmVideo.css('margin-top', marginTop);
+        }
+
+        $(document).ready(function () {
+            /************** Video background *********/
+
+            setVideoSize();
+
+            // Set video background size based on window size
+            let timeout;
+            window.onresize = function () {
+                clearTimeout(timeout);
+                timeout = setTimeout(setVideoSize, 100);
+            };
+
+            // Play/Pause button for video background      
+            const btn = $("#tm-video-control-button");
+
+            btn.on("click", function (e) {
+                const video = document.getElementById("tm-video");
+                $(this).removeClass();
+
+                if (video.paused) {
+                    video.play();
+                    $(this).addClass("fas fa-pause");
+                } else {
+                    video.pause();
+                    $(this).addClass("fas fa-play");
+                }
+            });
+        })
+    </script>
+</body>
+</html>

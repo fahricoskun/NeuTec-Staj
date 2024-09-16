@@ -1,0 +1,146 @@
+<%- include("partials/_header") -%>
+
+<body>
+    <div class="tm-page-wrap mx-auto">
+        <div class="position-relative">
+
+            <%- include("partials/_navigation") -%>
+            
+            <div class="tm-welcome-container text-center text-white">
+                <div class="tm-welcome-container-inner">
+                    <p class="tm-welcome-text mb-1 text-white">Neu-Stok</p>
+                    <p class="tm-welcome-text mb-5 text-white">NeuTec stok takip platformu.</p>
+                    <a href="https://neutec.com.tr/" class="btn tm-btn-animate tm-btn-cta tm-icon-down">
+                        <span>NeuTec</span>
+                    </a>
+                </div>
+            </div>
+
+            <div id="tm-video-container">
+                <img src="img/code_unsplash.jpg" alt="">
+            </div>
+            
+            <i id="tm-video-control-button" class="fas fa-plus"></i>
+        </div>
+
+        <div class="container-fluid">
+            <div id="content" class="mx-auto tm-content-container">
+                <main>
+                    <div class="row tm-catalog-item-list">
+                        <% for (let i = 0; i < product.length; i++) { %>
+                            <div class="col-lg-4 col-md-6 col-sm-12 tm-catalog-item">
+                                <div class="tm-bg-gray p-4">
+                                    <img src="<%= product[i].image %>" alt="Image" class="img-fluid tm-catalog-item-img mb-2">
+                                    <h3 class="tm-text-primary mb-3"><%= product[i].name %></h3>
+                                    <p><b><%= product[i].description %></b></p>
+                                </div>	
+                            </div>
+                            <% } %>
+                    </div>
+
+
+                    <!-- Catalog Paging Buttons -->
+                     <!--! if ile kaç pages değerini yani kaç adet page olması gerektiğini alırız ve eğer 0 dan küçükse pagination yapmaya gerek yoktur  -->
+                     <!--! for ile kaç adet sayfa gerekiyorsa -bize 3 adet lazım- o kadar kez döneriz  -->
+                     <!--! içerideki if ile hangi page'de isek o page numarasının active olmasını ayarlarız  -->
+                     <!--! else if içerisinde eğer i sayfa sayısından küçükse onu yazdırır  -->
+                     <!--! fakat else içinde eğer i sayfa sayısına eşitse > işareti koyar yani aslında son sayfa demektir -->
+                    <div>
+                       <% if(pages > 0) { %>
+                        <ul class="nav tm-paging-links">
+                            <% for (i = 1; i <= pages; i++) { %>
+                                <% if (i == current) { %>
+                                    <li class="nav-item active"><a href="/?page=<%= i %>" class="nav-link tm-paging-link"><%= i %></a></li>
+                                <% } else if (i < pages) { %>
+                                    <li class="nav-item"><a href="/?page=<%= i %>" class="nav-link tm-paging-link"><%= i %></a></li>
+                                <% } else { %>
+                                    <li class="nav-item"><a href="/?page=<%= i %>" class="nav-link tm-paging-link">></a></li>
+                                <% } %>
+                            <% } %>
+                        </ul>
+                        <% } %>
+                    </div>
+                    <div class="section cl mt-4">
+                        <div class="container">
+                            <div class="row text-left stat-wrap">
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <span class=" icon_wrap effect-1 alignleft"><i class="fas fa-user"></i></span>
+                                    <p class="stat_count">6</p>
+                                    <h3>Kullanıcılar</h3>
+                                </div><!-- end col -->
+                
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <span class=" icon_wrap effect-1 alignleft"><i class="fas fa-pills"></i></span>
+                                    <p class="stat_count">6</p>
+                                    <h3>Ürünler</h3>
+                                </div><!-- end col -->
+                            </div><!-- end row -->
+                        </div><!-- end container -->
+                    </div>
+                </main>
+
+                <%- include("partials/_footer") -%>
+
+                <script>
+                    function setVideoSize() {
+                        const vidWidth = 1920;
+                        const vidHeight = 1080;
+                        let windowWidth = window.innerWidth;
+                        let newVidWidth = windowWidth;
+                        let newVidHeight = windowWidth * vidHeight / vidWidth;
+                        let marginLeft = 0;
+                        let marginTop = 0;
+            
+                        if (newVidHeight < 500) {
+                            newVidHeight = 500;
+                            newVidWidth = newVidHeight * vidWidth / vidHeight;
+                        }
+            
+                        if(newVidWidth > windowWidth) {
+                            marginLeft = -((newVidWidth - windowWidth) / 2);
+                        }
+            
+                        if(newVidHeight > 720) {
+                            marginTop = -((newVidHeight - $('#tm-video-container').height()) / 2);
+                        }
+            
+                        const tmVideo = $('#tm-video');
+            
+                        tmVideo.css('width', newVidWidth);
+                        tmVideo.css('height', newVidHeight);
+                        tmVideo.css('margin-left', marginLeft);
+                        tmVideo.css('margin-top', marginTop);
+                    }
+            
+                    $(document).ready(function () {
+                        /************** Video background *********/
+            
+                        setVideoSize();
+            
+                        // Set video background size based on window size
+                        let timeout;
+                        window.onresize = function () {
+                            clearTimeout(timeout);
+                            timeout = setTimeout(setVideoSize, 100);
+                        };
+            
+                        // Play/Pause button for video background      
+                        const btn = $("#tm-video-control-button");
+            
+                        btn.on("click", function (e) {
+                            const video = document.getElementById("tm-video");
+                            $(this).removeClass();
+            
+                            if (video.paused) {
+                                video.play();
+                                $(this).addClass("fas fa-pause");
+                            } else {
+                                video.pause();
+                                $(this).addClass("fas fa-play");
+                            }
+                        });
+                    })
+                </script>
+</body>
+
+</html>
