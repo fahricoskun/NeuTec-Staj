@@ -3,53 +3,61 @@
 <body>
 	<div class="tm-page-wrap mx-auto">
 		<div class="position-relative">
-			
-            <%- include("partials/_navigation") -%>
+			<%- include("partials/_navigation") -%>
 
 			<div class="tm-welcome-container tm-fixed-header tm-fixed-header-1">
 				<div class="text-center">
-					<p class="pt-5 px-3 tm-welcome-text tm-welcome-text-2 mb-1 text-white mx-auto">NeuStok ürün düzenleme sayfası.</p>                	
-				</div>                
-            </div>
+					<p class="pt-5 px-3 tm-welcome-text tm-welcome-text-2 mb-1 text-white mx-auto" style="font-size: 2.5rem; font-weight: bold;">
+						NeuStok Ürün Düzenleme Sayfası
+					</p>
+				</div>
+			</div>
 
 			<!-- Header image -->
-            <div id="tm-fixed-header-bg"></div> 
+			<div id="tm-fixed-header-bg" style="background-image: url('/path/to/your/background.jpg'); background-size: cover; background-position: center;"></div>
 		</div>
 
 		<!-- Page content -->
-		<div class="container-fluid">
-			<div class="mx-auto tm-content-container mt-5">
-				<main>
-					<div class="row mb-5 pb-4">
-						<div class="col-12">
-							<img src="<%= product.image %>" alt="Image" class="img-fluid tm-catalog-item-img">
-						</div>
+		<div class="container mt-4">
+			<div class="row justify-content-center">
+			  <div class="col-lg-8">
+				<div class="card shadow-lg border-0 rounded-3">
+				  <div class="card-header bg-dark text-white text-center">
+					<h3 class="mb-0">Ürün Detayları</h3>
+				  </div>
+				  <div class="card-body p-5">
+					<div class="text-center mb-4">
+					  <img src="<%= product.image %>" alt="Ürün Görseli"
+						   class="img-fluid shadow-sm rounded" 
+						   style="max-width: 100%; border-radius: 15px;">
 					</div>
-					<div class="row mb-5 pb-5">
-						<div class="col-xl-8 col-lg-7">
-							<!-- Video description -->
-							<div class="tm-video-description-box">
-								<h2 class="mb-5 tm-video-title"><%= product.name %></h2>
-								<h4 class="mb-4"><b><%= product.description %></b></h4>	
-							</div>							
-						</div>
-						<% if (user && user.role !== "user") { %>
-						<div class="col-xl-4 col-lg-5">
-							<!-- Share box -->
-							<div class="tm-bg-gray tm-share-box">
-								<div class="text-center">
-									<a href="/products/edit/<%= product.slug %>" class="btn btn-primary p-0 mb-4 tm-btn-animate tm-btn-download tm-icon-download"><span>Ürün Güncelle</span></a>	
-								</div>	
-								<div class="text-center">
-									<a href="/products/<%= product.slug %>?_method=DELETE" class="btn btn-primary p-0 tm-btn-animate tm-btn-download tm-icon-download"
-										onclick="return confirm('Emin misin ?')"><span>Ürünü Sil</span></a>	
-								</div>								
-							</div>
-						</div>
-						<% } %>
-					</div>
-				</main>
+					<h2 class="card-title text-center"><%= product.name %></h2>
+					<p class="card-text card-desc text-center"><%= product.description %></p>
+		  
+					<% if (user && user.role !== "user") { %>
+					  <div class="d-flex justify-content-center gap-3 mt-4">
+						<a href="/products/edit/<%= product.slug %>" class="btn btn-outline-primary">
+						  Ürünü Güncelle
+						</a>
+						<a href="/products/<%= product.slug %>?_method=DELETE"
+						   class="btn btn-outline-danger"
+						   onclick="return confirm('Bu ürünü silmek istediğinizden emin misiniz?')">
+						  Ürünü Sil
+						</a>
+					  </div>
+					<% } %>
+				  </div>
+				  <div class="card-footer text-center bg-light">
+					<small class="text-muted">Ürün oluşturulma tarihi: <%= new Date(product.dateCreated).toLocaleDateString() %></small>
+				  </div>
+				</div>
+			  </div>
 			</div>
-                <%- include("partials/_footer") -%>					
+		  </div>
+
+		<div class="container-fluid tm-content-container mx-auto pt-4">
+			<%- include("partials/_footer") -%>
+		</div>
+	</div>
 </body>
 </html>

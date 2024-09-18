@@ -1,10 +1,11 @@
 const Product = require("../models/Product");
+const User = require("../models/User");
 
 //! ana sayfada en son yüklenen en başa gelsin diye sort() kullandık onu da dateCreated ile
 //! sıraladık başına - koyduk
 //? bütün fotoğrafları aldık
 exports.getIndexPage = async (req, res) => {
-
+  const totalUser = await User.countDocuments({role: "user"});
   const page = req.query.page || 1; //!kullanıcının hangi sayfada olduğunu alırız, eğer page değeri yoksa ilk sayfadadır deriz yani 1
   const productPerPage = 3; //! her pagede kaç foto gösterelim 
 
@@ -18,6 +19,8 @@ exports.getIndexPage = async (req, res) => {
     page_name: "index",
     product: product,
     current: page,
+    totalUser,
+    totalProduct,
     pages: Math.ceil(totalProduct / productPerPage) //! çıkan sonucu bir üste yuvarlar 2,5 ise 3
   });
 };

@@ -25,10 +25,12 @@ exports.getProduct = async (req, res) => {
 
 exports.getAllProducts = async (req, res) => {
   const product = await Product.find({});
+  const totalProduct = await Product.find().countDocuments(); //! veritabanımızda kaç ürün varsa onu döndürür
 
   res.render("products", {
     page_name: "products",
     product: product,
+    totalProduct,
   });
 };
 

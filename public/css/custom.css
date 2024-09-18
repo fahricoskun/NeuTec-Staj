@@ -58,7 +58,7 @@ h2, p { color: #666666; }
     color: white;
 }
 
-.tm-bg-gray { flex-grow: 1; background-color: #F4F4F4; border-style: double; border-color: rgb(237, 28, 36); }
+/* .tm-bg-gray { flex-grow: 1; background-color: #f8f9fa; border-radius: 10px;  } */
 .tm-text-primary { color: rgb(237, 28, 36); }
 .tm-text-secondary { color: #3CAFAF; }
 .tm-text-red { color: rgb(237, 28, 36)}
@@ -160,7 +160,7 @@ h2, p { color: #666666; }
 
 .tm-btn-cta {
     color: white;
-    background-color: rgba(0,0,0,0.5);
+    background-color: rgba(52, 52, 52, 0.726);
 }
 
 .tm-btn-cta:before { font-size: 180%; }
@@ -214,6 +214,7 @@ h2, p { color: #666666; }
     flex-direction: column;
     justify-content: space-between;
     margin-bottom: 64px;
+    margin-left: 5px;
 }
 
 .tm-thumbnail-container { overflow: hidden; }
@@ -347,7 +348,9 @@ form button:hover {
     max-width: 382px;
 }
 
-.tm-footer-links > li { margin-bottom: 10px; }
+.tm-footer-links > li { margin-bottom: 0.5rem; font-size: 1.1rem; }
+.tm-footer-links li a { color: #343a40; transition: color 0.3s ease;}
+.tm-footer-links li a:hover {color: #d9534f;}
 
 /*Video detail page*/
 
@@ -395,54 +398,180 @@ form button:hover {
 }
 
 /* Sonradan eklenenler SmartEDU */
-.section {
-    display: block;
+
+.text-muted {
+    font-size: 1rem;
+}
+
+.fas, .fab {
+    margin-right: 10px;
+    color: #d9534f;
+}
+
+.rounded {
+    border-radius: 10px;
+}   
+
+.stat-wrap {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.stat-card {
+    flex: 1;
+    margin: 10px; /* Aralarındaki boşluk */
+    max-width: 500px; /* Her bir kartın maksimum genişliği */
     position: relative;
     overflow: hidden;
-    padding: 70px 0;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
 }
 
-.section.cl {
-	background-color: #2d3032;
+.stat-card-count {
+    max-width: 400px;
+    margin: 0 auto; /* Ortalamak için */
+    background-color: #f8f9fa; /* Arka plan rengini değiştirmek için */
+    border: 1px solid #dee2e6; /* Kenarlık eklemek için */
 }
 
-.stat-wrap h3 {
-    font-size: 18px;
-    font-weight: 400;
-    color: #999 !important;
-    margin: 0 ;
-    padding: 0;
-    line-height: 1;
+.stat-card-count:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
-.stat-wrap p {
-    font-size: 38px;
-    color: #ffffff;
+.stat-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.stat-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.1);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 1;
+}
+
+.stat-card:hover::before {
+    opacity: 1;
+}
+
+.stat-card .icon_wrap {
+    z-index: 2;
+}
+
+.stat-card .stat-title {
+    z-index: 2;
+}
+
+.stat-card .stat_count {
+    z-index: 2;
+}
+
+.icon_wrap i {
+    color: #495057;
+    transition: color 0.3s ease;
+}
+
+.icon_wrap:hover i {
+    color: #d9534f;
+}
+
+.stat-title {
+    font-size: 1.4rem;
+    color: #495057;
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+
+.stat_count {
+    font-size: 2.5rem;
     margin: 0;
-    font-weight: 300;
-    padding: 4px 0 0;
-    line-height: 1 !important;
 }
 
-.icon_wrap {
-    background-color: #1f1f1f;
-    width: 100px;
-    height: 100px;
-    display: block;
-    line-height: 100px;
-    font-size: 34px;
-    color: #ffffff;
-    margin: 0 auto;
+.card {
+    transition: transform 0.3s ease-in-out;
+  }
+  
+.card:hover {
+    transform: translateY(-10px);
+  }
+
+.btn {
+    padding: 0.75rem 1.5rem;
+    font-size: 1.5rem;
+    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+  }
+
+.btn-outline-primary {
+    color: #007bff;
+  }
+
+.btn-outline-primary:hover {
+    background-color: #fff;
+    color: #0560c1;
+  }
+
+.btn-outline-danger {
+    color: #ff0000;
+  }
+
+.btn-outline-danger:hover {
+    background-color: #fff;
+    color: #c60a0a;
+  }
+
+  .tm-card {
+    position: relative;
+    background: #fff;
+    border: 1px solid #ddd;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+    overflow: hidden;
+    padding: 15px;
     text-align: center;
-    padding: 0 !important;
-    border: 0 !important;
 }
 
-.alignleft {
-    float: left;
-    margin: 10px 20px 20px 0;
+.tm-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
+.tm-card-title {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: #333;
+    font-weight: bold;
+}
+
+.tm-card-description {
+    font-size: 1rem;
+    margin-top: auto; /* Description'ı alta sabitlemek için */
+    color: #666;
+}
+
+.tm-catalog-item .shadow-lg {
+    width: 423px;
+    height: 482px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.tm-paging-links {
+    margin-bottom: 100px;
+}
+
+.card-desc {
+    font-size: 1.5rem;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
 /* Sonranan eklenenler SmartEDU */
 
 #tm-fixed-header-bg { height: 450px; }
