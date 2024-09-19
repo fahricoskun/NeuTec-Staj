@@ -21,7 +21,7 @@
                 <div class="container">
                     <div class="row text-center stat-wrap">
                         <div class="col-md-12 col-sm-12 mb-4">
-                            <div class="stat-card-count shadow-lg p-4 bg-light rounded">
+                            <div class="stat-card-count mt-5     shadow-lg p-4 bg-light rounded">
                                 <span class="icon_wrap effect-1 aligncenter mb-3">
                                     <i class="fas fa-pills fa-3x text-success"></i>
                                 </span>
@@ -32,6 +32,7 @@
                     </div>
                 </div>
             </div>
+
 
             <!-- Ürünler -->
             <div class="container-fluid px-0">
@@ -54,6 +55,27 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Pages Start -->
+            <div class="container-fluid px-0">
+                <div class="mx-auto tm-content-container px-3">
+                        <% if(pages > 0) { %>
+                            <ul class="nav tm-paging-links">
+                                <% for (i = 1; i <= pages; i++) { %>
+                                    <% if (i == current) { %>
+                                        <li class="nav-item active"><a href="/products/?page=<%= i %>" class="nav-link tm-paging-link"><%= i %></a></li>
+                                    <% } else if (i < pages) { %>
+                                        <li class="nav-item"><a href="/products/?page=<%= i %>" class="nav-link tm-paging-link"><%= i %></a></li>
+                                    <% } else { %>
+                                        <li class="nav-item"><a href="/products/?page=<%= i %>" class="nav-link tm-paging-link">></a></li>
+                                    <% } %>
+                                <% } %>
+                            </ul>
+                        <% } %>
+                </div>
+            </div>
+            <!-- Pages End -->
+
         </main>
 
         <div class="container-fluid tm-content-container mx-auto pt-5">

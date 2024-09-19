@@ -7,7 +7,7 @@ const fs = require("fs");
 exports.getProduct = async (req, res) => {
   try {
     // console.log("Route accessed with ID:", req.params.id); // Bu satır çalışıyor mu?
-    const product = await Product.findOne({slug: req.params.slug});
+    const product = await Product.findOne({ slug: req.params.slug });
 
     if (!product) {
       console.log("Ürün bulunamadı");
@@ -24,13 +24,21 @@ exports.getProduct = async (req, res) => {
 };
 
 exports.getAllProducts = async (req, res) => {
-  const product = await Product.find({});
+  const page = req.query.page || 1; //!kullanıcının hangi sayfada olduğunu alırız, eğer page değeri yoksa ilk sayfadadır deriz yani 1
+  const productPerPage = 12; //! her pagede kaç ürün gösterelim
+  
   const totalProduct = await Product.find().countDocuments(); //! veritabanımızda kaç ürün varsa onu döndürür
-
+  const product = await Product.find({})
+    .sort("-dateCreated")
+    .skip((page - 1) * productPerPage)
+    .limit(productPerPage);
+    
   res.render("products", {
     page_name: "products",
     product: product,
+    current: page,
     totalProduct,
+    pages: Math.ceil(totalProduct / productPerPage), //! çıkan sonucu bir üste yuvarlar 2,5 ise 3
   });
 };
 
@@ -70,15 +78,51 @@ exports.getEditPage = async (req, res) => {
 exports.updateProduct = async (req, res) => {
   try {
     const product = await Product.findOne({ slug: req.params.slug });
+
+    if (!product) {
+      return res
+        .status(404)
+        .json({ status: "fail", message: "Ürün bulunamadı." });
+    }
+
     product.name = req.body.name;
     product.description = req.body.description;
-    product.save();
-    res.status(200).redirect("/products");
+
+    // Eğer yeni bir görsel yüklendiyse, mevcut görseli güncelle
+    if (req.files && req.files.image) {
+      // Eski görseli sil
+      if (product.image) {
+        const oldImagePath = path.join(
+          __dirname,
+          "/../public/uploads",
+          path.basename(product.image)
+        );
+        if (fs.existsSync(oldImagePath)) {
+          fs.unlinkSync(oldImagePath);
+        }
+      }
+
+      const uploadedImage = req.files.image;
+      const uploadPath = path.join(
+        __dirname,
+        "/../public/uploads",
+        uploadedImage.name
+      );
+      uploadedImage.mv(uploadPath, (err) => {
+        if (err)
+          return res.status(500).json({ status: "fail", error: err.message });
+
+        product.image = "/uploads/" + uploadedImage.name;
+        product.save();
+        res.redirect("/products");
+      });
+    } else {
+      // Görsel güncellenmemişse, sadece diğer alanları güncelle
+      await product.save();
+      res.redirect("/products");
+    }
   } catch (error) {
-    res.status(400).json({
-      status: "fail",
-      error,
-    });
+    res.status(400).json({ status: "fail", error });
   }
 };
 

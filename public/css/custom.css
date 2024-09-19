@@ -205,7 +205,8 @@ h2, p { color: #666666; }
     padding-bottom: 35px;
 }
 
-.tm-page-title { font-size: 2.5rem; }
+.tm-page-title { font-size: 2rem;
+    color: #dc3545; }
 .tm-catalog-item-list { justify-content: start; }
 
 .tm-catalog-item {
@@ -290,6 +291,10 @@ h2, p { color: #666666; }
 
 .tm-page-wrap {
     margin: 0 auto;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .contact_form {
@@ -321,12 +326,15 @@ form button:hover {
 }
 
 .tm-welcome-container {
-    background: rgba(0, 0, 0, 0.7);
-    padding: 50px 0;
+    background-color: #343a40;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .tm-welcome-text {
-    font-size: 2rem;
+    font-size: 1.5rem;
+    font-weight: bold;
     color: #fff;
 }
 
@@ -579,12 +587,22 @@ form button:hover {
 
 .card-desc {
     font-size: 1.5rem;
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
 
 .edit-icon {
     color: rgb(216, 214, 214) !important;
 }
+
+.tm-contact-form {
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+
+
 /* Custom Css */
 
 #tm-fixed-header-bg { height: 450px; }
@@ -632,9 +650,13 @@ video {
     width:100%;
 }
 
-.form-control {
-    font-size: 1.2rem;
-    padding: 21px 25px;
+.form-control,
+.form-control-file {
+    border-radius: 8px;
+}
+.form-control-file {
+    padding: 10px;
+    border: 1px solid #ced4da;
 }
 
 .form-group {

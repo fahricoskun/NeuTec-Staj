@@ -7,12 +7,12 @@ const User = require("../models/User");
 exports.getIndexPage = async (req, res) => {
   const totalUser = await User.countDocuments({ role: "user" });
   const page = req.query.page || 1; //!kullanıcının hangi sayfada olduğunu alırız, eğer page değeri yoksa ilk sayfadadır deriz yani 1
-  const productPerPage = 3; //! her pagede kaç foto gösterelim
+  const productPerPage = 3; //! her pagede kaç ürün gösterelim
 
-  const totalProduct = await Product.find().countDocuments(); //! veritabanımızda kaç foto varsa onu döndürür
+  const totalProduct = await Product.find().countDocuments(); //! veritabanımızda kaç ürün varsa onu döndürür
   const product = await Product.find({})
     .sort("-dateCreated")
-    .skip((page - 1) * productPerPage) //! notlara bak -skip()
+    .skip((page - 1) * productPerPage)
     .limit(productPerPage); //!her sayfada kaç gösterilmesini isteriz onu belirledik limit ile
 
   res.render("index", {
@@ -25,13 +25,6 @@ exports.getIndexPage = async (req, res) => {
   });
 };
 
-// exports.getProductPage = async (req, res) => {
-//   const product = await Product.find({});
-//   res.render("products", {
-//     page_name: "product",
-//     product: product,
-//   });
-// }
 
 exports.getAddPage = (req, res) => {
   res.status(200).render("add", {
@@ -39,13 +32,6 @@ exports.getAddPage = (req, res) => {
   });
 };
 
-// exports.getEditPage = async (req, res) => {
-//   const product = await Product.findOne({ _id: req.params.id });
-//   res.status(200).render("edit", {
-//     page_name: "edit",
-//     product,
-//   });
-// };
 
 exports.getRegisterPage = (req, res) => {
   const messages = {
