@@ -4,26 +4,22 @@ const User = require("../models/User");
 
 exports.createUser = async (req, res) => {
     try {
-        // req.body'den gelen role bilgisini atlayıp varsayılan olarak "user" rolünü belirleyin
         const { name, email, password } = req.body;
-        const role = 'user'; // Otomatik olarak "user" rolünü atıyoruz
+        const role = 'user'; // Varsayılan rol
 
-        // Yeni kullanıcıyı oluştur
-        const user = await User.create({ name, email, password, role });
+        // Kullanıcıyı oluştur
+        await User.create({ name, email, password, role });
 
-        // Başarı durumunda login sayfasına yönlendir
-        res.status(201).redirect("/login");
+        // Başarı mesajı
+        req.flash('success', 'Kullanıcı başarıyla oluşturuldu. Giriş yapabilirsiniz.');
+        res.redirect('/login');
     } catch (error) {
-        // Hata durumunda doğrulama hatalarını işleme
-        const errors = validationResult(req);
-
-        // Hata mesajlarını flash olarak ayarla
-        errors.array().forEach(error => req.flash("error", error.msg));
-
-        // Kayıt formuna yönlendir
-        res.status(404).redirect("/register");
+        // Hata mesajı
+        req.flash('error', 'Bir hata oluştu. Lütfen tekrar deneyin.');
+        res.redirect('/register');
     }
 };
+
 
 exports.loginUser = async (req, res) => {
     try {

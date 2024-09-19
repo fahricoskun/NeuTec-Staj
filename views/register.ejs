@@ -1,6 +1,6 @@
 <%- include("partials/_header") -%>
 <body>
-    <div class=" mx-auto">
+    <div class="mx-auto">
         <div class="position-relative">
             <%- include("partials/_navigation") -%>
 
@@ -8,8 +8,8 @@
                 <div class="text-center">
                     <p class="pt-5 px-3 tm-welcome-text tm-welcome-text-2 mb-1 mt-lg-0 mt-5 text-white mx-auto">
                         NeuStok<br>Kullanıcı Kayıt
-                    </p>                 
-                </div>                
+                    </p>
+                </div>
             </div>
             <div id="tm-fixed-header-bg"></div> <!-- Header image -->
         </div>
@@ -20,7 +20,24 @@
                 <div class="col-lg-6 col-md-8 col-sm-10">
                     <div class="contact_form bg-light p-4 rounded shadow">
                         <h3 class="text-center mb-4">Kullanıcı Kayıt</h3>
-                        <div id="message"></div>
+
+                        <!-- Flash Mesajları Gösterimi -->
+                        <% if (messages.error && messages.error.length > 0) { %>
+                            <div class="alert alert-danger">
+                                <% messages.error.forEach(msg => { %>
+                                    <p><%= msg %></p>
+                                <% }); %>
+                            </div>
+                        <% } %>
+
+                        <% if (messages.success && messages.success.length > 0) { %>
+                            <div class="alert alert-success">
+                                <% messages.success.forEach(msg => { %>
+                                    <p><%= msg %></p>
+                                <% }); %>
+                            </div>
+                        <% } %>
+
                         <form method="post" action="/users/signup" novalidate>
                             <div class="mb-3">
                                 <label for="name" class="form-label">Ad</label>
@@ -47,6 +64,7 @@
             <%- include("partials/_footer") -%>
         </div>
 
-    <script src="js/parallax.min.js"></script>
+        <script src="js/parallax.min.js"></script>
+    </div>
 </body>
 </html>
