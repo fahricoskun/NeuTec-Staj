@@ -1,4 +1,6 @@
-Sakarya Üniversitesi - Bilişim Sistemleri Mühendisliği
-Staj 2 - Yazılım Stajı
-Neutec Bilişim Teknolojileri Ticaret Anonim A.Ş
-Fahri COŞKUN - B201200028
+## Staj 2 - Yazılım Stajı
+**Sakarya Üniversitesi - Bilişim Sistemleri Mühendisliği**  
+**Neutec Bilişim Teknolojileri Ticaret Anonim A.Ş**  
+
+**Fahri COŞKUN**  
+Öğrenci Numarası: B201200028
